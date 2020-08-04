@@ -47,7 +47,7 @@ public class DiagonalUpRight_OpMode extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftMotor_f = null;
     private DcMotor rightMotor_b = null;
-    private double power = .3;
+    private double power = .45;
     private long runFor = 3000;
 
     @Override

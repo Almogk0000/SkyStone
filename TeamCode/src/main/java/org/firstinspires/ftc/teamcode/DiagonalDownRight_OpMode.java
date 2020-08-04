@@ -47,7 +47,7 @@ public class DiagonalDownRight_OpMode extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftMotor_b = null;
     private DcMotor rightMotor_u = null;
-    private double power = -0.3;
+    private double power = -0.45;
     private long runFor = 3000;
 
     @Override
@@ -56,8 +56,8 @@ public class DiagonalDownRight_OpMode extends LinearOpMode {
         telemetry.update();
 
         // We assign the hardware map of the motors we declared above.
-        leftMotor_b  = hardwareMap.get(DcMotor.class, "mFL");
-        rightMotor_u = hardwareMap.get(DcMotor.class, "mBR");
+        leftMotor_b  = hardwareMap.get(DcMotor.class, "mBL");
+        rightMotor_u = hardwareMap.get(DcMotor.class, "mFR");
 
         // Setting directions for the motors.
         rightMotor_u.setDirection(DcMotor.Direction.FORWARD);

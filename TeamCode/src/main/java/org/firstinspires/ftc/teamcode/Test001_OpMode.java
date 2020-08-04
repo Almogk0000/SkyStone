@@ -50,7 +50,7 @@ public class Test001_OpMode extends LinearOpMode {
     private DcMotor leftMotor_b = null;
     private DcMotor rightMotor_b = null;
     private DcMotor rightMotor_f = null;
-    private double power = .25;
+    private double power = .45;
     private long runFor = 2000;
     private long delay = 1000;
 
