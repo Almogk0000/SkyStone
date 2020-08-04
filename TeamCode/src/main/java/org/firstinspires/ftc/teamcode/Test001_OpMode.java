@@ -34,13 +34,15 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 
 /**
- * This file contains the code to make the robot go in a left up diagonal way for 3 seconds.
+ * This file contains the code to make every motor run for 2 seocnds, stop and pass on to the next motor for testing.
  */
 
-@TeleOp(name="Basic: Turn Left OpMode", group="Tests")
-public class SpinLeft_OpMode extends LinearOpMode {
+@TeleOp(name="Basic: Test001 OpMode", group="Tests")
+public class Test001_OpMode extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -48,8 +50,9 @@ public class SpinLeft_OpMode extends LinearOpMode {
     private DcMotor leftMotor_b = null;
     private DcMotor rightMotor_b = null;
     private DcMotor rightMotor_f = null;
-    private double power = .3;
-    private long runFor = 3000;
+    private double power = .25;
+    private long runFor = 2000;
+    private long delay = 1000;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -72,21 +75,35 @@ public class SpinLeft_OpMode extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        TurnLeft(leftMotor_f, leftMotor_b, rightMotor_b, rightMotor_f, power, runFor);
-        StopDrive(leftMotor_f, leftMotor_b, rightMotor_b, rightMotor_f);
+        while (true){
+            Drive(leftMotor_f, power, runFor);
+            Telemetry.Line line1 = telemetry.addLine("Motor Running: left-motor-front");
+            telemetry.update();
+            WaitXSeconds(delay);
+            telemetry.removeLine(line1);
+            Drive(leftMotor_b, power, runFor);
+            Telemetry.Line line2 = telemetry.addLine("Motor Running: left-motor-back");
+            telemetry.update();
+            WaitXSeconds(delay);
+            telemetry.removeLine(line2);
+            Drive(rightMotor_f, power, runFor);
+            Telemetry.Line line3 = telemetry.addLine("Motor Running: right-motor-front");
+            telemetry.update();
+            WaitXSeconds(delay);
+            telemetry.removeLine(line3);
+            Drive(rightMotor_b, power, runFor);
+            Telemetry.Line line4 = telemetry.addLine("Motor Running: right-motor-back");
+            telemetry.update();
+            WaitXSeconds(delay);
+            telemetry.removeLine(line4);
+        }
     }
 
-    public void TurnLeft(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, long time) throws InterruptedException{
-        motor1.setPower(-power);
-        motor2.setPower(-power);
-        motor3.setPower(power);
-        motor4.setPower(power);
+    public void Drive(DcMotor motor1, double power, long time) throws InterruptedException{
+        motor1.setPower(power);
         Thread.sleep(time);
     }
-    public void StopDrive(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4){
-        motor1.setPower(0);
-        motor2.setPower(0);
-        motor3.setPower(0);
-        motor4.setPower(0);
+    public void WaitXSeconds(long time) throws InterruptedException {
+        Thread.sleep(time);
     }
 }

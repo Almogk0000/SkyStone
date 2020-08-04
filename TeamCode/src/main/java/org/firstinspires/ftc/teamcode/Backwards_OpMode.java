@@ -49,7 +49,7 @@ public class Backwards_OpMode extends LinearOpMode {
     private DcMotor leftMotor_b = null;
     private DcMotor rightMotor_b = null;
     private DcMotor rightMotor_f = null;
-    private double power = -1.0;
+    private double power = -.3;
     private long runFor = 3000;
 
     @Override

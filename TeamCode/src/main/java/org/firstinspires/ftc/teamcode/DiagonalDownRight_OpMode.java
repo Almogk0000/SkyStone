@@ -47,7 +47,7 @@ public class DiagonalDownRight_OpMode extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftMotor_b = null;
     private DcMotor rightMotor_u = null;
-    private double power = -1.0;
+    private double power = -.3;
     private long runFor = 3000;
 
     @Override
