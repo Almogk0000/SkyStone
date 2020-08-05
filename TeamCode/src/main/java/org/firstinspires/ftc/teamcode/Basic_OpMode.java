@@ -29,18 +29,20 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 
 /**
- * This file contains the code to make the robot go in a left up diagonal way for 3 seconds.
+ * This file will make the robot move depending on the button pressed.
  */
 
-@TeleOp(name="Basic: Left OpMode", group="Tests")
-public class Left_OpMode extends LinearOpMode {
+@TeleOp(name="Basic: Movement OpMode", group="Linear Opmode")
+public class Basic_OpMode extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -49,10 +51,10 @@ public class Left_OpMode extends LinearOpMode {
     private DcMotor rightMotor_b = null;
     private DcMotor rightMotor_f = null;
     private double power = .45;
-    private long runFor = 3000;
+
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
@@ -68,25 +70,41 @@ public class Left_OpMode extends LinearOpMode {
         leftMotor_f.setDirection(DcMotor.Direction.REVERSE);
         leftMotor_b.setDirection(DcMotor.Direction.REVERSE);
 
+        Move motors = new Move(leftMotor_f, leftMotor_b, rightMotor_f, rightMotor_b, power);
+
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
 
-        DriveLeft(leftMotor_f, leftMotor_b, rightMotor_b, rightMotor_f, power, runFor);
-        StopDrive(leftMotor_f, leftMotor_b, rightMotor_b, rightMotor_f);
-    }
+        // Wait for the game to start (driver presses PLAY)
+        waitForStart();
+        runtime.reset();
 
-    public void DriveLeft(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, long time) throws InterruptedException{
-        motor1.setPower(-power);
-        motor2.setPower(power);
-        motor3.setPower(-power);
-        motor4.setPower(power);
-        Thread.sleep(time);
-    }
-    public void StopDrive(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4){
-        motor1.setPower(0);
-        motor2.setPower(0);
-        motor3.setPower(0);
-        motor4.setPower(0);
+        // run until the end of the match (driver presses STOP)
+        while (opModeIsActive()) {
+            if(gamepad1.a == true){
+                motors.DriveBackwards(power);
+            }else if(gamepad1.y == true){
+                motors.DriveForward(power);
+            }else if(gamepad1.b == true){
+                motors.DriveRight(power);
+            }else if(gamepad1.x == true){
+                motors.DriveLeft(power);
+            }else if(gamepad1.right_stick_button == true){
+                motors.TurnRight(power);
+            }else if(gamepad1.left_stick_button == true){
+                motors.TurnLeft(power);
+            }else if(gamepad1.dpad_up == true){
+                motors.DriveDiagonalUpLeft(power);
+            }else if(gamepad1.dpad_down == true){
+                motors.DriveDiagonalUpRight(power);
+            }else if(gamepad1.dpad_left == true){
+                motors.DriveDiagonalDownLeft(power);
+            }else if(gamepad1.dpad_right == true){
+                motors.DriveDiagonalDownRight(power);
+            }else{
+                motors.StopMotors();
+            }
+        }
     }
 }
