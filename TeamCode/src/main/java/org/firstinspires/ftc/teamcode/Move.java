@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class Move {
+public class  Move {
     private DcMotor mFL;
     private DcMotor mBL;
     private DcMotor mFR;
@@ -73,15 +73,15 @@ public class Move {
     public void DriveLeft(double power){
         mFL.setPower(-power);
         mBL.setPower(power);
-        mFR.setPower(-power);
-        mBR.setPower(power);
+        mFR.setPower(power);
+        mBR.setPower(-power);
     }
 
     public void DriveRight(double power){
         mFL.setPower(power);
         mBL.setPower(-power);
-        mFR.setPower(power);
-        mBR.setPower(-power);
+        mFR.setPower(-power);
+        mBR.setPower(power);
     }
 
     public void TurnRight(double power){
